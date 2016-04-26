@@ -3,7 +3,7 @@
 ## Note
 * The entry point defined in server side will be used as the execution entry point of custom scripts. For example, if the entry point is `index`, then script `/custom/index.js` will be executed when index page is opened.
 * You should define all your scripts as AMD modules. `Require.js` is recommended.
-* `jquery`, `co` and `crawler` module are currently provided and can be imported with `require` or `define` function.
+* `jquery`, `co` and `crawler` module are currently provided and can be directly imported with `require` or `define` function.
 
 ## API
 * Class `crawler`:

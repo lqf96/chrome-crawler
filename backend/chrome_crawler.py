@@ -6,7 +6,7 @@ from __future__ import unicode_literals, print_function
 from gevent import sleep, monkey
 monkey.patch_all()
 # Bottle.py
-from bottle import Bottle, request as req, response as res, redirect, static_file
+from bottle import Bottle, request as req, response as res, redirect, static_file, abort
 # Python system libraries
 import json, sys
 from collections import deque
@@ -14,9 +14,11 @@ from base64 import b64encode, b64decode
 from urllib import quote, unquote
 from os.path import dirname, abspath
 from copy import copy
+from pkg_resources import Requirement, resource_string
+from mimetypes import guess_type
 
-# Frontend files root
-frontend_root = dirname(abspath(__file__))+"/frontend"
+# Package name
+_pkg_name = Requirement.parse("ChromeCrawler")
 
 # Chrome crawler backend
 class ChromeCrawler(object):
@@ -65,7 +67,17 @@ class ChromeCrawler(object):
     @staticmethod
     def _crawler_static(path):
         """ Serve Chrome crawler static files. """
-        return static_file(path, root=frontend_root)
+        # Fetch file content
+        try:
+            file_content = resource_string(_pkg_name, "frontend/"+path)
+        except IOError:
+            abort(404, "Not Found")
+        # Guess MIME type from file name
+        mime_type = guess_type(path)[0]
+        if mime_type:
+            res.set_header(b"content-type", mime_type)
+        # Return file content
+        return file_content
     # Custom static files
     def _custom_static(self, path):
         """ Serve custom script & files. """
