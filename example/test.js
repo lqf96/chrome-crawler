@@ -1,7 +1,7 @@
 //Test.js: Chrome crawler example project
 "use strict";
 
-require(["crawler"], function(crawler)
+require(["jquery", "crawler"], function($, crawler)
 {   //Create a new crawler
     var c = new crawler();
 

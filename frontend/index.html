@@ -3,7 +3,28 @@
 <head>
     <meta charset="utf-8" />
     <title>Chrome Crawler</title>
+    <!-- Require.js -->
+    <script>
+    var require = {
+        "paths": {
+            "jquery": "https://cdn.bootcss.com/jquery/2.2.1/jquery.min",
+            "crawler": "/crawler"
+        },
+        "baseUrl": "custom"
+    };
+    </script>
+    <script src="https://cdn.bootcss.com/require.js/2.1.22/require.min.js" data-main="../index.js"></script>
+    <!-- Page style -->
+    <style>
+    *
+    {   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    }
+    </style>
 </head>
 <body>
+    <h2>Welcome to Chrome Crawler!</h2>
+    <p>To start crawling, browse <a href="https://github.com/lqf96/chrome-crawler">Github repository</a> for information.</p>
+    <hr />
+    <div id="custom-area"></div>
 </body>
 </html>

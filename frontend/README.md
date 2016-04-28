@@ -1,9 +1,10 @@
 # Chrome Crawler Frontend Documentation
 
 ## Note
-* The entry point defined in server side will be used as the execution entry point of custom scripts. For example, if the entry point is `index`, then script `/custom/index.js` will be executed when index page is opened.
-* You should define all your scripts as AMD modules. `Require.js` is recommended.
-* `jquery`, `co` and `crawler` module are currently provided and can be directly imported with `require` or `define` function.
+* You should define all your crawling scripts as AMD modules. You can use `require.js` to do that, which is provided by default in the framework.
+* The base URL for `require.js` is `/config`.
+* To use extra 3rd party JS AMD modules, call `require.config` to update module path mapping. Alternatively you can define the mapping at server side.
+* We recommend you to put custom HTML content in element `#custom-area`.
 
 ## API
 * Class `crawler`:
