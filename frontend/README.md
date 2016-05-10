@@ -2,7 +2,7 @@
 
 ## Note
 * You should define all your crawling scripts as AMD modules. You can use `require.js` to do that, which is provided by default in the framework.
-* The base URL for `require.js` is `/config`.
+* The base URL for `require.js` is `/custom`.
 * To use extra 3rd party JS AMD modules, call `require.config` to update module path mapping. Alternatively you can define the mapping at server side.
 * We recommend you to put custom HTML content in element `#custom-area`.
 
