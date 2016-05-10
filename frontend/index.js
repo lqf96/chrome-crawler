@@ -4,7 +4,10 @@
 define(["jquery"], function($)
 {   //Fetch configuration from server
     $.get("/bknd/config", function(conf)
-    {   //Extra library address mapping
+    {   //Define configuration module
+        define("config", conf);
+
+        //Extra library address mapping
         if ("amd_mapping" in conf)
             require.config({
                 "paths": conf.amd_mapping

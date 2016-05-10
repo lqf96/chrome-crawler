@@ -2,12 +2,12 @@
 Proof-of-concept web page content crawler that runs in Google Chrome.
 
 ## Get Started
-* Download latest [Python distribution](https://github.com/lqf96/chrome-crawler/raw/master/dist/ChromeCrawler-0.0.2.tar.gz) and install it with `pip`. It is highly recommended to install it in a virtual environment.
+* Download latest [Python distribution](https://github.com/lqf96/chrome-crawler/raw/master/dist/ChromeCrawler-0.0.3.tar.gz) and install it with `pip`. It is highly recommended to install it in a virtual environment.
 <pre><code>
-$ wget https://github.com/lqf96/chrome-crawler/raw/master/dist/ChromeCrawler-0.0.2.tar.gz
+$ wget https://github.com/lqf96/chrome-crawler/raw/master/dist/ChromeCrawler-0.0.3.tar.gz
 $ virtualenv testenv
 $ . testenv/bin/activate
-(testenv) $ pip install ChromeCrawler-0.0.2.tar.gz
+(testenv) $ pip install ChromeCrawler-0.0.3.tar.gz
 </code></pre>
 * Copy the example folder in this repository and run test.py. Then open Chrome with proper flags to allow unconditional cross origin access.  
 Then browse http://127.0.0.1:8080 and you should see example crawling script running.

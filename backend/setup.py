@@ -6,7 +6,7 @@ from setuptools import setup
 # Distribution information
 setup(
     name="ChromeCrawler",
-    version="0.0.2",
+    version="0.0.3",
     description="Chrome web page crawler backend.",
     author="Qifan Lu",
     author_email="lqf.1996121@gmail.com",
