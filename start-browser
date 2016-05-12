@@ -1,0 +1,10 @@
+#! /bin/sh
+
+# Check if Chrome is running
+if pgrep chrome >/dev/null 2>&1; then
+    echo "Chrome is still running. Please close all Chrome windows before running this script."
+    echo "You may also consider disable X-Frame-Options protections by installing extensions."
+    exit 1
+fi
+# Run Chrome with given flags
+nohup google-chrome --disable-web-security --user-data-dir >/dev/null 2>&1 &

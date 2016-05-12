@@ -10,7 +10,7 @@ setup(
     description="Chrome web page crawler backend.",
     author="Qifan Lu",
     author_email="lqf.1996121@gmail.com",
-    packages=["frontend"],
+    packages=["chrome_crawler_frontend"],
     py_modules = ["chrome_crawler"],
     license="BSD",
     url="https://github.com/lqf96/chrome-crawler",

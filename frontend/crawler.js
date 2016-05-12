@@ -68,15 +68,11 @@ define(["jquery"], function($)
             //Add event listener
             new_iframe.load(function()
             {   //Call callback
+                var cb_result = null;
                 if (($(this).attr("src")!="about:blank")&&(spare_frame.cb))
                 {   var _cb = this.contentWindow.eval("("+spare_frame.cb.toString()+")");
-                    _cb(self);
+                    cb_result = _cb.apply(this.contentWindow, [self].concat(spare_frame.extra_args));
                 }
-
-                //Unlock the frame
-                spare_frame.available = true;
-                //Update page count
-                spare_frame.count++;
 
                 //Replace old deferred object with new one
                 var old_deferred = spare_frame.deferred;
@@ -87,10 +83,16 @@ define(["jquery"], function($)
                 if (spare_frame.count>=this.max_count)
                 {   $(this).remove();
                     self.__frames.splice(self.__frames.indexOf(spare_frame), 1);
+                    return;
                 }
 
+                //Unlock the frame
+                spare_frame.available = true;
+                //Update page count
+                spare_frame.count++;
+
                 //Resolve old promise
-                old_deferred.resolve();
+                old_deferred.resolve(cb_result);
             });
 
             //Add frame to frame collection
@@ -99,6 +101,8 @@ define(["jquery"], function($)
 
         //Lock the frame
         spare_frame.available = false;
+        //Extra arguments passed to callback
+        spare_frame.extra_args = Array.from(arguments).slice(2);
         //Set callback and URL
         spare_frame.cb = callback;
         spare_frame.iframe.attr("src", url);
@@ -130,6 +134,19 @@ define(["jquery"], function($)
         script_element.addEventListener("load", d.resolve);
         //Append script element to document body
         w.document.body.appendChild(script_element);
+        return d.promise();
+    };
+
+    //Retrive server data from backend
+    crawler.prototype.get = function(key)
+    {   var d = $.Deferred();
+        //Retrive server data
+        $.get("/bknd/data", function(data)
+        {   if (key!=null)
+                d.resolve(data[key]);
+            else
+                d.resolve(data);
+        });
         return d.promise();
     };
 

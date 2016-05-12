@@ -2,12 +2,9 @@
 "use strict";
 
 define(["jquery"], function($)
-{   //Fetch configuration from server
-    $.get("/bknd/config", function(conf)
-    {   //Define configuration module
-        define("config", conf);
-
-        //Extra library address mapping
+{   //Fetch server data (configuration) from server
+    $.get("/bknd/data", function(conf)
+    {   //Extra library address mapping
         if ("amd_mapping" in conf)
             require.config({
                 "paths": conf.amd_mapping

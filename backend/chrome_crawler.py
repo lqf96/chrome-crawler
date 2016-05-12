@@ -52,11 +52,11 @@ class ChromeCrawler(object):
                 current_msg = self._msg_queue.popleft()
                 yield "data: "+b64encode(quote(json.dumps(current_msg)))+"\n\n"
             sleep(0)
-    # Server side routes
-    def _bknd_config(self):
-        """ Return backend configuration. """
+    # Server side data
+    def _bknd_data(self):
+        """ Return backend data (including configuration). """
         res.set_header(b"content-type", b"application/json")
-        return json.dumps(self.conf)
+        return json.dumps(self.srv_data)
     # [ Static Routes ]
     # Index redirection
     @staticmethod
@@ -69,7 +69,7 @@ class ChromeCrawler(object):
         """ Serve Chrome crawler static files. """
         # Fetch file content
         try:
-            file_content = resource_string(_pkg_name, "frontend/"+path)
+            file_content = resource_string(_pkg_name, "chrome_crawler_frontend/"+path)
         except IOError:
             abort(404, "Not Found")
         # Guess MIME type from file name
@@ -81,7 +81,7 @@ class ChromeCrawler(object):
     # Custom static files
     def _custom_static(self, path):
         """ Serve custom script & files. """
-        return static_file(path, root=self.conf["custom_root"])
+        return static_file(path, root=self.srv_data["custom_root"])
     # [ Member Functions ]
     # Constructor
     def __init__(self, **kwargs):
@@ -91,17 +91,21 @@ class ChromeCrawler(object):
         Possible configuration items include:
         * custom_root: Custom script root folder. (Will be mounted at "/custom")
         * entry: Custom script entry point.
+        * amd_mapping: Frontend AMD modules mapping.
+
+        All other arguments are saved into member 'srv_data' which can be retrived by
+        '/bknd/data' from frontend.
         """
         # Members
         self._msg_queue = deque()
         self._callback = {}
-        self.conf = copy(kwargs)
+        self.srv_data = copy(kwargs)
         # Bottle.py web app
         self.app = Bottle()
         # Backend routes
         self.app.route("/bknd/msg", method="POST", callback=self._recv_msg)
         self.app.route("/bknd/poll", callback=self._msg_polling)
-        self.app.route("/bknd/config", callback=self._bknd_config)
+        self.app.route("/bknd/data", callback=self._bknd_data)
         # Static files
         self.app.route("/", callback=ChromeCrawler._index_redirect)
         if "custom_root" in kwargs:

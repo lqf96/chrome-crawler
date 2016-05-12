@@ -1,1 +1,1 @@
-recursive-include frontend *
+recursive-include chrome_crawler_frontend *
