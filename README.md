@@ -23,5 +23,9 @@ A workaround is to print crawling output directly on the webpage.
 * Even if cross-origin access is enabled from command line, Chrome still blocks some pages which enables X-Frame-Options protection.  
 To allow these pages to be loaded you will need to install some Chrome extensions.
 
+## Example projects
+* [Simple Example](example)
+* [Yahoo Q&A](https://coding.net/u/lqf96/p/YahooQnA/git)
+
 ## License
 The whold project is licensed under 3-clause BSD license.
